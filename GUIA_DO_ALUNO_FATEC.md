@@ -1,7 +1,7 @@
 # 🍪 Guia Prático do Aluno · Fatec Taquaritinga
 ### Workshop: "Do cookie ao dashboard: Databricks & Carreira"
 **Palestrante:** Vitor Hugo Nascimento · Lead Data Engineer & Technical Mentor  
-**Repositório Oficial:** [palestra_factectq_databricks](https://github.com/vitorhugon/palestra_factectq_databricks)
+**Repositório Oficial:** [palestra_factectq_databricks](https://github.com/vitorh-nascimento/palestra_factectq_databricks)
 
 ---
 
@@ -15,7 +15,7 @@ Tudo o que vimos na palestra roda 100% no navegador via **Databricks Free Editio
 ## 🛠️ Passo 1: Criando sua Conta Gratuita no Databricks
 1. Acesse: **[signup.databricks.com](https://signup.databricks.com)**.
 2. Preencha seu nome, e-mail e empresa/instituição (pode colocar `Fatec Taquaritinga`).
-3. Na tela de seleção de plano, escolha **Databricks Free Edition / Community**:
+3. Na tela de seleção de plano, escolha **Databricks Free Edition**:
    * ✅ Não pede cartão de crédito.
    * ✅ Não expira.
    * ✅ Vem com clusters serverless e o dataset oficial da demo pré-instalado.
@@ -33,10 +33,11 @@ No menu lateral esquerdo do Databricks:
    * `sales_franchises`: Lojas espalhadas pelo mundo.
    * `sales_suppliers`: Fornecedores de insumos.
    * `media_customer_reviews`: Avaliações em texto livre dos clientes.
+   * `media_gold_reviews_chunked`: As avaliações divididas em trechos (*chunks*), prontas para uso com IA.
 
 ---
 
-## 🕵️‍♂️ Passo 3: Os 6 Casos do CSI Cookie para Refazer
+## 🕵️‍♂️ Passo 3: Os Casos do CSI Cookie para Refazer
 
 Abra um novo **Notebook** ou o **SQL Editor** e teste as queries abaixo:
 
@@ -102,12 +103,19 @@ LIMIT 5;
 ### 5. Auditoria de Privacidade (LGPD)
 ```sql
 DESCRIBE TABLE samples.bakehouse.sales_customers;
+DESCRIBE TABLE samples.bakehouse.sales_transactions;
 ```
-> **Lição:** Identifique dados PII (`email_address`, `phone_number`, `cardNumber`). No Databricks, governança é feita via Unity Catalog.
+> **Lição:** Identifique dados pessoais: `first_name`, `last_name`, `email_address`, `phone_number` e `address` em clientes, e `cardNumber` em vendas. No Databricks, governança é feita via Unity Catalog (permissões e máscaras de coluna).
 
 ---
 
-### 6. IA Generativa com SQL (AI Functions)
+### 6. Perguntando em Português (Genie)
+No menu lateral, abra o **Genie**, crie um espaço com as tabelas `sales_transactions` e `sales_franchises` e pergunte: *"Qual franquia vendeu mais?"*. Clique em **Show code** e compare o SQL gerado com o Caso 4.
+> **Lição:** A IA acelera, mas quem entende o dado é quem confere se ela acertou.
+
+---
+
+### 🎁 Bônus: IA Generativa com SQL (AI Functions)
 ```sql
 SELECT 
     review, 
@@ -123,8 +131,8 @@ LIMIT 10;
 
 Quer chamar a atenção de recrutadores para o seu primeiro estágio? Faça este projeto:
 1. Descubra **qual dia da semana** tem maior volume de vendas usando a função `DAYOFWEEK(dateTime)`.
-2. Identifique qual **categoria de produto** gera o maior ticket médio (`AVG(totalPrice)`).
-3. Tire print do seu notebook rodando no Databricks, suba o código no seu GitHub e poste no LinkedIn marcando a Fatec Taquaritinga e me marcando!
+2. Identifique qual **sabor de cookie** (`product`) gera o maior ticket médio (`AVG(totalPrice)`).
+3. Tire print do seu notebook rodando no Databricks, suba o código no seu GitHub e poste no LinkedIn marcando a Fatec Taquaritinga, a Programmers e me marcando!
 
 ---
 

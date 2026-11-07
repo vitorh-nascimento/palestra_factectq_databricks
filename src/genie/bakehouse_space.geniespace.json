@@ -38,10 +38,16 @@
             "description": ["E-mail do cliente (Dado PII protegido pela LGPD)."]
           },
           {
-            "column_name": "name",
-            "description": ["Nome completo do cliente."],
+            "column_name": "first_name",
+            "description": ["Primeiro nome do cliente (Dado PII protegido pela LGPD)."],
             "enable_entity_matching": true,
-            "synonyms": ["cliente", "consumidor"]
+            "synonyms": ["cliente", "consumidor", "nome"]
+          },
+          {
+            "column_name": "last_name",
+            "description": ["Sobrenome do cliente (Dado PII protegido pela LGPD)."],
+            "enable_entity_matching": true,
+            "synonyms": ["sobrenome"]
           },
           {
             "column_name": "phone_number",
@@ -84,14 +90,7 @@
         "column_configs": [
           {
             "column_name": "cardNumber",
-            "description": ["Número mascarado do cartão de crédito."]
-          },
-          {
-            "column_name": "cardType",
-            "description": ["Bandeira do cartão usado (Visa, Mastercard, Amex)."],
-            "enable_entity_matching": true,
-            "enable_format_assistance": true,
-            "synonyms": ["bandeira", "forma de pagamento", "cartão"]
+            "description": ["Número do cartão de crédito (Dado sensível protegido pela LGPD)."]
           },
           {
             "column_name": "customerID",
@@ -105,6 +104,13 @@
           {
             "column_name": "franchiseID",
             "description": ["Identificador da loja onde ocorreu a venda."]
+          },
+          {
+            "column_name": "paymentMethod",
+            "description": ["Forma de pagamento / bandeira do cartão usado (mastercard, amex, visa)."],
+            "enable_entity_matching": true,
+            "enable_format_assistance": true,
+            "synonyms": ["bandeira", "forma de pagamento", "cartão"]
           },
           {
             "column_name": "product",
@@ -144,7 +150,7 @@
         "id": "20000000000000000000000000000002",
         "question": ["Qual sabor de cookie mais vendido?"],
         "sql": [
-          "SELECT product, SUM(quantity) AS total_unidades FROM samples.bakehouse.sales_transactions GROUP BY product ORDER BY total_unidades DESC LIMIT 5"
+          "SELECT product, SUM(quantity) AS total_unidades FROM samples.bakehouse.sales_transactions GROUP BY product ORDER BY total_unidades DESC LIMIT 1"
         ]
       },
       {

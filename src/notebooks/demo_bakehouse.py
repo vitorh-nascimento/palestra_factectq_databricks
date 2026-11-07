@@ -170,12 +170,53 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 🍪 Queries de Validação para o Quiz Relâmpago
+# MAGIC ## 🍪 Quiz Relâmpago
+# MAGIC 1. Qual camada é o cookie embalado na prateleira? (Bronze / Silver / Gold)
+# MAGIC 2. Em que cidade fica a franquia campeã? (Nova York / Roma / Estocolmo)
+# MAGIC 3. Qual comando juntou vendas e franquias? (SELECT / JOIN / DELETE)
+# MAGIC 4. Por que as vendas "caíram" no dia 17?
+# MAGIC 5. Qual coluna dá processo pela LGPD? (cidade / e-mail / sabor)
+# MAGIC 6. Qual é a lição nº 1 da área de dados?
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- Quiz Q3: Qual cookie vendeu mais unidades?
+# MAGIC -- Gabarito do Quiz Relâmpago:
+# MAGIC -- 1) Gold (dado pronto para consumo)
+# MAGIC -- 2) Roma (comprovação abaixo, mesma lógica do Caso 4)
+# MAGIC -- 3) JOIN
+# MAGIC -- 4) Os dados param às 11h48 (comprovação na célula seguinte, mesma lógica do Caso 3)
+# MAGIC -- 5) e-mail (email_address é dado pessoal identificável)
+# MAGIC -- 6) Desconfiar do dado
+# MAGIC SELECT
+# MAGIC     f.name AS franquia,
+# MAGIC     f.city AS cidade,
+# MAGIC     ROUND(SUM(t.totalPrice), 2) AS faturamento_total
+# MAGIC FROM samples.bakehouse.sales_transactions t
+# MAGIC JOIN samples.bakehouse.sales_franchises f
+# MAGIC   ON t.franchiseID = f.franchiseID
+# MAGIC GROUP BY f.name, f.city
+# MAGIC ORDER BY faturamento_total DESC
+# MAGIC LIMIT 1;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC -- Quiz P4: até que horas vão os dados?
+# MAGIC SELECT
+# MAGIC     MIN(dateTime) AS primeira_venda_registrada,
+# MAGIC     MAX(dateTime) AS ultima_venda_registrada
+# MAGIC FROM samples.bakehouse.sales_transactions;
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## 🏠 Desafio extra para casa
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC -- Desafio 1: Qual cookie vendeu mais unidades?
 # MAGIC SELECT 
 # MAGIC     product, 
 # MAGIC     SUM(quantity) AS total_unidades 
@@ -187,11 +228,11 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- Quiz Q4: Qual bandeira de cartão mais apareceu?
+# MAGIC -- Desafio 2: Qual bandeira de cartão mais apareceu?
 # MAGIC SELECT 
-# MAGIC     cardType, 
+# MAGIC     paymentMethod, 
 # MAGIC     COUNT(*) AS total_transacoes 
 # MAGIC FROM samples.bakehouse.sales_transactions 
-# MAGIC GROUP BY cardType 
+# MAGIC GROUP BY paymentMethod 
 # MAGIC ORDER BY total_transacoes DESC;
 
