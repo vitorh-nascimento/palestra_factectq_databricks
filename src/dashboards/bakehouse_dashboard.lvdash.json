@@ -1,0 +1,54 @@
+{
+  "datasets": [
+    {
+      "name": "vendas_por_hora",
+      "displayName": "Vendas por Hora",
+      "queryLines": [
+        "SELECT ",
+        "    HOUR(dateTime) AS hora, ",
+        "    COUNT(*) AS vendas ",
+        "FROM samples.bakehouse.sales_transactions ",
+        "GROUP BY hora ",
+        "ORDER BY hora;"
+      ]
+    },
+    {
+      "name": "top_franquias",
+      "displayName": "Franquias Campeãs",
+      "queryLines": [
+        "SELECT ",
+        "    f.name AS franquia, ",
+        "    f.city AS cidade, ",
+        "    f.country AS pais, ",
+        "    ROUND(SUM(t.totalPrice), 2) AS faturamento ",
+        "FROM samples.bakehouse.sales_transactions t ",
+        "JOIN samples.bakehouse.sales_franchises f ",
+        "  ON t.franchiseID = f.franchiseID ",
+        "GROUP BY f.name, f.city, f.country ",
+        "ORDER BY faturamento DESC ",
+        "LIMIT 5;"
+      ]
+    },
+    {
+      "name": "produtos_mais_vendidos",
+      "displayName": "Top Cookies",
+      "queryLines": [
+        "SELECT ",
+        "    product, ",
+        "    SUM(quantity) AS total_unidades ",
+        "FROM samples.bakehouse.sales_transactions ",
+        "GROUP BY product ",
+        "ORDER BY total_unidades DESC ",
+        "LIMIT 5;"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "overview",
+      "displayName": "CSI Cookie - Visão Executiva",
+      "layout": []
+    }
+  ]
+}
+

@@ -1,0 +1,205 @@
+{
+  "version": 2,
+  "config": {
+    "sample_questions": [
+      {
+        "id": "10000000000000000000000000000001",
+        "question": ["Qual franquia vendeu mais?"]
+      },
+      {
+        "id": "10000000000000000000000000000002",
+        "question": ["Qual o sabor de cookie mais vendido?"]
+      },
+      {
+        "id": "10000000000000000000000000000003",
+        "question": ["Qual o faturamento total por país?"]
+      },
+      {
+        "id": "10000000000000000000000000000004",
+        "question": ["Qual bandeira de cartão é a mais usada nas compras?"]
+      }
+    ]
+  },
+  "data_sources": {
+    "tables": [
+      {
+        "identifier": "samples.bakehouse.sales_customers",
+        "column_configs": [
+          {
+            "column_name": "address",
+            "description": ["Endereço do cliente (Dado PII protegido pela LGPD)."]
+          },
+          {
+            "column_name": "customerID",
+            "description": ["Identificador único do cliente."]
+          },
+          {
+            "column_name": "email_address",
+            "description": ["E-mail do cliente (Dado PII protegido pela LGPD)."]
+          },
+          {
+            "column_name": "name",
+            "description": ["Nome completo do cliente."],
+            "enable_entity_matching": true,
+            "synonyms": ["cliente", "consumidor"]
+          },
+          {
+            "column_name": "phone_number",
+            "description": ["Número de telefone do cliente (Dado PII)."]
+          }
+        ]
+      },
+      {
+        "identifier": "samples.bakehouse.sales_franchises",
+        "column_configs": [
+          {
+            "column_name": "city",
+            "description": ["Cidade onde a franquia está instalada."],
+            "enable_entity_matching": true,
+            "enable_format_assistance": true,
+            "synonyms": ["município", "cidade"]
+          },
+          {
+            "column_name": "country",
+            "description": ["País da unidade da franquia."],
+            "enable_entity_matching": true,
+            "enable_format_assistance": true,
+            "synonyms": ["país", "nação"]
+          },
+          {
+            "column_name": "franchiseID",
+            "description": ["Identificador chave da franquia."]
+          },
+          {
+            "column_name": "name",
+            "description": ["Nome fantasia da loja ou franquia."],
+            "enable_entity_matching": true,
+            "enable_format_assistance": true,
+            "synonyms": ["loja", "franquia", "unidade"]
+          }
+        ]
+      },
+      {
+        "identifier": "samples.bakehouse.sales_transactions",
+        "column_configs": [
+          {
+            "column_name": "cardNumber",
+            "description": ["Número mascarado do cartão de crédito."]
+          },
+          {
+            "column_name": "cardType",
+            "description": ["Bandeira do cartão usado (Visa, Mastercard, Amex)."],
+            "enable_entity_matching": true,
+            "enable_format_assistance": true,
+            "synonyms": ["bandeira", "forma de pagamento", "cartão"]
+          },
+          {
+            "column_name": "customerID",
+            "description": ["Identificador do cliente que realizou a compra."]
+          },
+          {
+            "column_name": "dateTime",
+            "description": ["Data e hora da transação de venda."],
+            "synonyms": ["data", "horário", "quando"]
+          },
+          {
+            "column_name": "franchiseID",
+            "description": ["Identificador da loja onde ocorreu a venda."]
+          },
+          {
+            "column_name": "product",
+            "description": ["Nome do sabor de cookie comprado."],
+            "enable_entity_matching": true,
+            "enable_format_assistance": true,
+            "synonyms": ["cookie", "sabor", "produto", "item"]
+          },
+          {
+            "column_name": "quantity",
+            "description": ["Quantidade de cookies vendidos na transação."],
+            "synonyms": ["unidades", "volume", "quantidade"]
+          },
+          {
+            "column_name": "totalPrice",
+            "description": ["Valor monetário total da transação em dólares."],
+            "synonyms": ["faturamento", "receita", "valor", "preço total"]
+          },
+          {
+            "column_name": "transactionID",
+            "description": ["Identificador único da transação de venda."]
+          }
+        ]
+      }
+    ]
+  },
+  "instructions": {
+    "example_question_sqls": [
+      {
+        "id": "20000000000000000000000000000001",
+        "question": ["Qual franquia vendeu mais?"],
+        "sql": [
+          "SELECT f.name, ROUND(SUM(t.totalPrice), 2) AS total_faturamento FROM samples.bakehouse.sales_transactions t JOIN samples.bakehouse.sales_franchises f ON t.franchiseID = f.franchiseID GROUP BY f.name ORDER BY total_faturamento DESC LIMIT 1"
+        ]
+      },
+      {
+        "id": "20000000000000000000000000000002",
+        "question": ["Qual sabor de cookie mais vendido?"],
+        "sql": [
+          "SELECT product, SUM(quantity) AS total_unidades FROM samples.bakehouse.sales_transactions GROUP BY product ORDER BY total_unidades DESC LIMIT 5"
+        ]
+      },
+      {
+        "id": "20000000000000000000000000000003",
+        "question": ["Qual o faturamento por país?"],
+        "sql": [
+          "SELECT f.country, ROUND(SUM(t.totalPrice), 2) AS faturamento FROM samples.bakehouse.sales_transactions t JOIN samples.bakehouse.sales_franchises f ON t.franchiseID = f.franchiseID GROUP BY f.country ORDER BY faturamento DESC"
+        ]
+      }
+    ],
+    "join_specs": [
+      {
+        "id": "20000000000000000000000000000004",
+        "left": {
+          "identifier": "samples.bakehouse.sales_transactions",
+          "alias": "sales_transactions"
+        },
+        "right": {
+          "identifier": "samples.bakehouse.sales_franchises",
+          "alias": "sales_franchises"
+        },
+        "sql": [
+          "sales_transactions.`franchiseID` = sales_franchises.`franchiseID`",
+          "--rt=FROM_RELATIONSHIP_TYPE_MANY_TO_ONE--"
+        ]
+      }
+    ],
+    "sql_snippets": {
+      "measures": [
+        {
+          "alias": "faturamento_total",
+          "display_name": "Faturamento Total",
+          "id": "20000000000000000000000000000005",
+          "sql": ["ROUND(SUM(sales_transactions.`totalPrice`), 2)"],
+          "synonyms": ["receita", "total vendido", "faturamento"]
+        },
+        {
+          "alias": "quantidade_total",
+          "display_name": "Volume de Cookies",
+          "id": "20000000000000000000000000000006",
+          "sql": ["SUM(sales_transactions.`quantity`)"],
+          "synonyms": ["unidades vendidas", "volume"]
+        }
+      ]
+    },
+    "text_instructions": [
+      {
+        "content": [
+          "Para perguntas sobre faturamento, receita ou valor financeiro, sempre use SUM(sales_transactions.totalPrice).",
+          "Para perguntas sobre volume de vendas ou unidades de cookies, use SUM(sales_transactions.quantity).",
+          "Para relacionar vendas às cidades ou nomes de lojas, sempre faça JOIN com samples.bakehouse.sales_franchises usando a coluna franchiseID."
+        ],
+        "id": "30000000000000000000000000000001"
+      }
+    ]
+  }
+}
+

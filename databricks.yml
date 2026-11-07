@@ -1,0 +1,23 @@
+# Databricks Asset Bundle (DAB) Configuration
+# Projeto: Palestra Fatec Taquaritinga - Do cookie ao dashboard: Databricks & Carreira
+# Autor: Vitor Hugo Nascimento (Lead Data Engineer)
+
+bundle:
+  name: palestra_factectq_databricks
+
+include:
+  - resources/*.yml
+
+variables:
+  warehouse_id:
+    description: "ID do SQL Warehouse para o AI/BI Dashboard (Serverless Starter Warehouse)"
+    default: "741245947a35cac0"
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-08a827af-160b.cloud.databricks.com
+      profile: dbc-08a827af-160b
+      root_path: /Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}

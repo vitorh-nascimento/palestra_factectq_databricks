@@ -1,0 +1,11 @@
+resources:
+  jobs:
+    demo_bakehouse_job:
+      name: "[Palestra Fatec] CSI Cookie - Pipeline Demo"
+      description: "Job para execução e validação da demo CSI Cookie usando o dataset samples.bakehouse."
+      tasks:
+        - task_key: run_csi_cookie_notebook
+          notebook_task:
+            notebook_path: ../src/notebooks/demo_bakehouse.py
+            source: WORKSPACE
+

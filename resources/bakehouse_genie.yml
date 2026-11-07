@@ -1,0 +1,8 @@
+resources:
+  genie_spaces:
+    bakehouse_genie_agent:
+      title: "[Bakehouse] CSI Cookie - Genie Agent"
+      description: "Agente IA conversacional da Bakehouse para a demo da Fatec Taquaritinga."
+      warehouse_id: ${var.warehouse_id}
+      file_path: ../src/genie/bakehouse_space.geniespace.json
+

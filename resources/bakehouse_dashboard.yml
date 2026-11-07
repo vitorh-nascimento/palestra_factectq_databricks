@@ -1,0 +1,7 @@
+resources:
+  dashboards:
+    bakehouse_executive_dashboard:
+      display_name: "[Bakehouse] Painel Executivo - CSI Cookie"
+      warehouse_id: ${var.warehouse_id}
+      file_path: ../src/dashboards/bakehouse_dashboard.lvdash.json
+
