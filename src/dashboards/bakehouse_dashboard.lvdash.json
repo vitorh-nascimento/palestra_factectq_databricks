@@ -158,7 +158,10 @@
                   "fieldName": "franquia",
                   "displayName": "Franquia",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
                   }
                 }
               },
@@ -212,7 +215,10 @@
                   "fieldName": "product",
                   "displayName": "Sabor do Cookie",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
                   }
                 }
               },

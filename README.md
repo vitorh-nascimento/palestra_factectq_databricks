@@ -30,7 +30,6 @@ palestra_factectq_databricks/
 │       ├── 05_governanca_lgpd.sql
 │       ├── 06_ai_sentiment.sql
 │       └── quiz_validacoes.sql
-├── GUIA_PALESTRANTE_FATEC_TAQUARITINGA.md # Roteiro de palco, minutagem, contingência e FAQ
 ├── GUIA_DO_ALUNO_FATEC.md             # Guia prático para os alunos refazerem em casa
 ├── .gitignore                         # Padrão para Databricks e Python
 └── README.md                          # Este arquivo de documentação
@@ -103,5 +102,4 @@ Cada investigação possui seu script SQL isolado para consulta rápida em [`src
 
 ## 📋 Materiais de Apoio
 
-* 👉 [**GUIA_PALESTRANTE_FATEC_TAQUARITINGA.md**](GUIA_PALESTRANTE_FATEC_TAQUARITINGA.md): Roteiro de palco minuto a minuto (0 a 60 min), matriz de contingência (Plano B) e FAQ.
 * 👉 [**GUIA_DO_ALUNO_FATEC.md**](GUIA_DO_ALUNO_FATEC.md): Tutorial mastigado para estudantes refazerem a demo e praticarem desafios para portfólio.
