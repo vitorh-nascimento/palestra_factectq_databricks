@@ -10,14 +10,13 @@ include:
 
 variables:
   warehouse_id:
-    description: "ID do SQL Warehouse para o AI/BI Dashboard (Serverless Starter Warehouse)"
-    default: "741245947a35cac0"
+    description: "ID do SQL Warehouse para o AI/BI Dashboard"
+    lookup:
+      warehouse: "Serverless Starter Warehouse"
 
 targets:
   dev:
     mode: development
     default: true
     workspace:
-      host: https://dbc-08a827af-160b.cloud.databricks.com
-      profile: dbc-08a827af-160b
       root_path: /Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}

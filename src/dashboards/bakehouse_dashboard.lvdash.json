@@ -47,8 +47,189 @@
     {
       "name": "overview",
       "displayName": "CSI Cookie - Visão Executiva",
-      "layout": []
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layout": [
+        {
+          "widget": {
+            "name": "header_title",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# CSI Cookie - Visão Executiva\n",
+                "\n",
+                "Painel executivo com métricas de vendas, franquias e produtos da rede Bakehouse."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_vendas_por_hora",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "vendas_por_hora",
+                  "fields": [
+                    {
+                      "name": "hora",
+                      "expression": "`hora`"
+                    },
+                    {
+                      "name": "vendas",
+                      "expression": "`vendas`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "hora",
+                  "displayName": "Hora do Dia",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "vendas",
+                  "displayName": "Vendas",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Distribuição de Vendas por Hora do Dia",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_top_franquias",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "top_franquias",
+                  "fields": [
+                    {
+                      "name": "franquia",
+                      "expression": "`franquia`"
+                    },
+                    {
+                      "name": "faturamento",
+                      "expression": "`faturamento`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "faturamento",
+                  "displayName": "Faturamento ($)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "franquia",
+                  "displayName": "Franquia",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Top 5 Franquias por Faturamento",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_produtos_mais_vendidos",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "produtos_mais_vendidos",
+                  "fields": [
+                    {
+                      "name": "product",
+                      "expression": "`product`"
+                    },
+                    {
+                      "name": "total_unidades",
+                      "expression": "`total_unidades`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "total_unidades",
+                  "displayName": "Unidades Vendidas",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product",
+                  "displayName": "Sabor do Cookie",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Top 5 Cookies Mais Vendidos",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ]
     }
   ]
 }
-

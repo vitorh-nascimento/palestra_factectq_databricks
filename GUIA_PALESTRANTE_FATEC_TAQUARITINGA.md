@@ -2,7 +2,7 @@
 **Palestra:** "Do cookie ao dashboard: Databricks & Carreira"  
 **Palestrante:** Vitor Hugo Nascimento  
 **Data:** 11/11/2026 | **Duração:** 60 minutos  
-**Arquivo do Notebook:** [`Teste_Demo_Bakehouse.py`](file:///c:/dev/palestra_factectq_databricks/Teste_Demo_Bakehouse.py)
+**Arquivo do Notebook:** [`src/notebooks/demo_bakehouse.py`](src/notebooks/demo_bakehouse.py)
 
 ---
 

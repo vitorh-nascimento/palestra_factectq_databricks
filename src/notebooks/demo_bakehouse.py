@@ -112,6 +112,12 @@
 
 # MAGIC %md
 # MAGIC ### Exemplo Conceitual de Mascaramento Dinâmico (Unity Catalog):
+# MAGIC > ⚠️ **Nota Prática:** O catálogo `samples` é **somente leitura**. Para testar o mascaramento de dados (Dynamic Column Masking) de verdade, é preciso copiar a tabela para um catálogo próprio onde você tenha permissão de escrita e aplicar a máscara nela:
+# MAGIC > ```sql
+# MAGIC > CREATE TABLE main.default.clientes AS 
+# MAGIC > SELECT * FROM samples.bakehouse.sales_customers;
+# MAGIC > ```
+# MAGIC
 # MAGIC ```sql
 # MAGIC -- Criando regra de mascaramento para LGPD:
 # MAGIC CREATE OR REPLACE FUNCTION mascara_email(email STRING) 
@@ -120,8 +126,8 @@
 # MAGIC     ELSE CONCAT(SUBSTRING(email, 1, 2), '****@', SPLIT(email, '@')[1]) 
 # MAGIC END;
 # MAGIC
-# MAGIC -- Aplicando na coluna sensível:
-# MAGIC ALTER TABLE samples.bakehouse.sales_customers 
+# MAGIC -- Aplicando na coluna sensível da tabela:
+# MAGIC ALTER TABLE main.default.clientes 
 # MAGIC ALTER COLUMN email_address SET MASK mascara_email;
 # MAGIC ```
 
