@@ -1,6 +1,6 @@
 -- Quiz Relâmpago (alinhado ao deck) · gabarito nos comentários
 
--- Pergunta 1: Qual camada é o cookie embalado na prateleira? (Bronze / Silver / Gold)
+-- Pergunta 1: Qual camada é o biscoito embalado na prateleira? (Bronze / Silver / Gold)
 -- Resposta: Gold (dado pronto para consumo)
 
 -- Pergunta 2: Em que cidade fica a franquia campeã? (Nova York / Roma / Estocolmo)
@@ -26,8 +26,10 @@ SELECT
     MAX(dateTime) AS ultima_venda_registrada
 FROM samples.bakehouse.sales_transactions;
 
--- Pergunta 5: Qual coluna dá processo pela LGPD? (cidade / e-mail / sabor)
--- Resposta: e-mail (email_address é dado pessoal identificável)
+-- Pergunta 5: Qual função de IA classificou as avaliações? (COUNT(*) / ai_analyze_sentiment / MAX)
+-- Resposta: ai_analyze_sentiment (comprovação abaixo, mesma lógica do Bônus)
+SELECT review, ai_analyze_sentiment(review) AS sentimento
+FROM samples.bakehouse.media_customer_reviews LIMIT 5;
 
 -- Pergunta 6: Qual é a lição nº 1 da área de dados?
 -- Resposta: desconfiar do dado
@@ -37,7 +39,7 @@ FROM samples.bakehouse.sales_transactions;
 -- Desafio extra para casa
 -- ============================================================
 
--- Desafio 1: Qual cookie vendeu mais unidades?
+-- Desafio 1: Qual biscoito vendeu mais unidades?
 -- Resposta: Golden Gate Ginger (3.865 unidades)
 SELECT 
     product, 

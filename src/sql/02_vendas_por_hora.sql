@@ -1,4 +1,4 @@
--- Caso 2: Que horas o povo come cookie?
+-- Caso 2: Que horas o povo come biscoito?
 -- Análise de vendas agregadas por hora do dia (Demonstração de dado sintético / uniforme)
 SELECT 
     HOUR(dateTime) AS hora, 

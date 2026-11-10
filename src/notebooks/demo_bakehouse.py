@@ -27,7 +27,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## ⏰ Caso 2: Que horas o povo come cookie? (Análise Temporal)
+# MAGIC ## ⏰ Caso 2: Que horas o povo come biscoito? (Análise Temporal)
 # MAGIC **Pergunta para a plateia:** Manhã, almoço ou noite?  
 # MAGIC *Dica:* Alterne para visualização em **Gráfico de Barras** (X = `hora`, Y = `vendas`).
 
@@ -93,48 +93,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 🔒 Caso 5: O vazamento (Governança & LGPD no Unity Catalog)
-# MAGIC **Pergunta para a plateia:** Se esse banco vazasse amanhã, qual coluna daria processo?
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC -- Caso 5.1: Inspecionando colunas e tipos em clientes
-# MAGIC DESCRIBE TABLE samples.bakehouse.sales_customers;
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC -- Caso 5.2: Inspecionando colunas e tipos em transações
-# MAGIC DESCRIBE TABLE samples.bakehouse.sales_transactions;
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Exemplo Conceitual de Mascaramento Dinâmico (Unity Catalog):
-# MAGIC > ⚠️ **Nota Prática:** O catálogo `samples` é **somente leitura**. Para testar o mascaramento de dados (Dynamic Column Masking) de verdade, é preciso copiar a tabela para um catálogo próprio onde você tenha permissão de escrita e aplicar a máscara nela:
-# MAGIC > ```sql
-# MAGIC > CREATE TABLE main.default.clientes AS 
-# MAGIC > SELECT * FROM samples.bakehouse.sales_customers;
-# MAGIC > ```
-# MAGIC
-# MAGIC ```sql
-# MAGIC -- Criando regra de mascaramento para LGPD:
-# MAGIC CREATE OR REPLACE FUNCTION mascara_email(email STRING) 
-# MAGIC RETURN CASE 
-# MAGIC     WHEN is_account_group_member('rh_privilegiado') THEN email 
-# MAGIC     ELSE CONCAT(SUBSTRING(email, 1, 2), '****@', SPLIT(email, '@')[1]) 
-# MAGIC END;
-# MAGIC
-# MAGIC -- Aplicando na coluna sensível da tabela:
-# MAGIC ALTER TABLE main.default.clientes 
-# MAGIC ALTER COLUMN email_address SET MASK mascara_email;
-# MAGIC ```
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ## 🤖 Caso 6: Perguntando em Português (Databricks Assistant / Genie)
+# MAGIC ## 🤖 Caso 5: Perguntando em Português (Databricks Assistant / Genie)
 # MAGIC **Prompt para testar ao vivo:** `"Qual franquia vendeu mais?"`
 
 # COMMAND ----------
@@ -171,11 +130,11 @@
 
 # MAGIC %md
 # MAGIC ## 🍪 Quiz Relâmpago
-# MAGIC 1. Qual camada é o cookie embalado na prateleira? (Bronze / Silver / Gold)
+# MAGIC 1. Qual camada é o biscoito embalado na prateleira? (Bronze / Silver / Gold)
 # MAGIC 2. Em que cidade fica a franquia campeã? (Nova York / Roma / Estocolmo)
 # MAGIC 3. Qual comando juntou vendas e franquias? (SELECT / JOIN / DELETE)
 # MAGIC 4. Por que as vendas "caíram" no dia 17?
-# MAGIC 5. Qual coluna dá processo pela LGPD? (cidade / e-mail / sabor)
+# MAGIC 5. Qual função de IA classificou as avaliações? (COUNT(*) / ai_analyze_sentiment / MAX)
 # MAGIC 6. Qual é a lição nº 1 da área de dados?
 
 # COMMAND ----------
@@ -186,7 +145,7 @@
 # MAGIC -- 2) Roma (comprovação abaixo, mesma lógica do Caso 4)
 # MAGIC -- 3) JOIN
 # MAGIC -- 4) Os dados param às 11h48 (comprovação na célula seguinte, mesma lógica do Caso 3)
-# MAGIC -- 5) e-mail (email_address é dado pessoal identificável)
+# MAGIC -- 5) ai_analyze_sentiment (comprovação no Bônus: AI Functions)
 # MAGIC -- 6) Desconfiar do dado
 # MAGIC SELECT
 # MAGIC     f.name AS franquia,
@@ -216,7 +175,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- Desafio 1: Qual cookie vendeu mais unidades?
+# MAGIC -- Desafio 1: Qual biscoito vendeu mais unidades?
 # MAGIC SELECT 
 # MAGIC     product, 
 # MAGIC     SUM(quantity) AS total_unidades 
