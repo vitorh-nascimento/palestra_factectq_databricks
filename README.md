@@ -104,6 +104,7 @@ Cada investigação possui seu script SQL isolado para consulta rápida em [`src
 ## 📋 Materiais de Apoio
 
 * 👉 [**GUIA_DO_ALUNO_FATEC.md**](GUIA_DO_ALUNO_FATEC.md): Tutorial mastigado para estudantes refazerem a demo e praticarem desafios para portfólio.
+* 🎤 [**Slides da palestra (PDF)**](docs/slides_palestra_fatec_taquaritinga.pdf): Apresentação completa usada na Fatec Taquaritinga em 11/11/2026.
 
 ---
 
